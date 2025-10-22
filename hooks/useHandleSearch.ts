@@ -1,9 +1,11 @@
-import { SectionArrayType } from "@/constants/section-type";
+import { searchShows } from "@/lib/api/omdb";
+import { SectionArrayType } from "@/types";
 import { useState } from "react";
 
-const useHandleSearch = (
+export const useHandleSearch = (
     initialData: SectionArrayType,
-    initialSearchValue: string
+    initialSearchValue: string,
+    searchType: "movie" | "series" = "movie"
 ) => {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
@@ -21,26 +23,18 @@ const useHandleSearch = (
     const fetchData = async (submitValue: string) => {
         try {
             setLoading(true);
-            const res = await fetch(
-                `https://omdbapi.com/?apikey=d5adca4b&s=${submitValue}&page=1&type=movie`
-            );
-            const data: {
-                Search: SectionArrayType;
-                Response: string;
-                Error: string;
-            } = await res.json();
-            if (data.Response === "False") {
-                setError(data.Error);
-                setLoading(false);
-                return;
-            }
-            setError("")
-            setContentData(data.Search);
-            setLoading(false);
+            setError("");
+
+            const data = await searchShows(submitValue, searchType);
+
+            setContentData(data.Search || []);
         } catch (e) {
-            setError("Error");
+            setError(e instanceof Error ? e.message : "Error fetching data");
+        } finally {
+            setLoading(false);
         }
     };
+
     return {
         searchValue,
         contentData,

@@ -18,6 +18,8 @@ export interface MoviePropsType {
     imdbRating: string;
     imdbVotes: string;
     Type: string;
+    Response?: string;
+    Error?: string;
 }
 
 interface RatingsArray {
