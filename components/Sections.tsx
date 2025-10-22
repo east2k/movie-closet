@@ -2,6 +2,7 @@ import { SectionPropsType } from "@/constants/section-type";
 import React from "react";
 import LinkCard from "./LinkCard";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 interface SectionProps {
     label: string;
@@ -28,10 +29,10 @@ const Sections: React.FC<SectionProps> = ({
                     </h2>
                 </div>
                 {size === "small" && (
-                    <button className="flex items-center gap-2 text-text-secondary hover:text-accent-primary transition-colors group">
+                    <Link href={`/${sectionType}`} className="flex items-center gap-2 text-text-secondary hover:text-accent-primary transition-colors group">
                         <span className="text-sm font-medium">View All</span>
                         <ChevronRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </button>
+                    </Link>
                 )}
             </div>
 
