@@ -1,4 +1,4 @@
-import { StarIcon } from "@heroicons/react/20/solid";
+import { StarIcon } from "@heroicons/react/24/solid";
 import React from "react";
 
 interface RatingsProps {
@@ -8,10 +8,14 @@ interface RatingsProps {
 
 const Ratings: React.FC<RatingsProps> = ({ source, value }) => {
     return (
-        <div className="flex flex-row items-center border-b border-opacity-10 border-cinder-500">
-            <StarIcon className="w-4 h-4 text-yellow-300" />
-            <h3 className="text-sm text-cinder-200 w-full">{source}</h3>
-            <p className="ml-5">{value}</p>
+        <div className="flex items-center justify-between p-4 bg-background-tertiary border border-white/10 rounded-xl">
+            <div className="flex items-center gap-3">
+                <div className="p-2 bg-yellow-500/10 rounded-lg">
+                    <StarIcon className="w-5 h-5 text-yellow-400" />
+                </div>
+                <h3 className="text-sm font-medium text-text-secondary">{source}</h3>
+            </div>
+            <p className="text-lg font-semibold text-text-primary">{value}</p>
         </div>
     );
 };

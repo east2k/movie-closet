@@ -1,4 +1,4 @@
-import { StarIcon } from "@heroicons/react/20/solid";
+import { StarIcon, ClockIcon, CalendarIcon, FilmIcon } from "@heroicons/react/24/solid";
 import React from "react";
 import SmallDetails from "./SmallDetails";
 import Ratings from "./Ratings";
@@ -34,39 +34,62 @@ const DetailBox: React.FC<DetailBoxProps> = ({
 }) => {
     const splitGenre: Array<String> = genre.split(",");
     return (
-        <div className="mr-20 ml-10 px-10 my-5 py-5 w-2/3 border border-cinder-500 border-opacity-25 rounded-lg">
-            <h1 className="text-4xl font-bold mb-10">{title}</h1>
-            <ul className="flex flex-row gap-5 flex-wrap mb-3">
-                {splitGenre.map((item, index) => {
-                    return (
-                        <li
-                            key={index}
-                            className="bg-cinder-900 text-cinder-300 px-3 rounded-full"
-                        >
-                            {item}
-                        </li>
-                    );
-                })}
-            </ul>
-            <div className="flex flex-row gap-10 mb-4">
-                <SmallDetails year={year} rated={rated} runtime={runtime} />
+        <div className="flex-1 space-y-6 px-4 sm:px-6 lg:px-8 py-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-500/10 border border-yellow-500/20 rounded-full">
+                <StarIcon className="w-5 h-5 text-yellow-400" />
+                <span className="text-yellow-400 font-semibold text-lg">{imdbRating}</span>
+                <span className="text-text-tertiary text-sm">IMDb</span>
             </div>
-            <p className="text-cinder-200 mb-4">{plot}</p>
+
+            <h1 className="text-4xl sm:text-5xl font-bold text-text-primary leading-tight">
+                {title}
+            </h1>
+
+            <div className="flex flex-wrap gap-2">
+                {splitGenre.map((item, index) => (
+                    <span
+                        key={index}
+                        className="px-4 py-2 bg-background-tertiary border border-white/10 rounded-full text-sm text-text-secondary"
+                    >
+                        {item.trim()}
+                    </span>
+                ))}
+            </div>
+
+            <div className="flex flex-wrap items-center gap-6 text-text-secondary">
+                <div className="flex items-center gap-2">
+                    <CalendarIcon className="w-5 h-5 text-accent-tertiary" />
+                    <span>{year}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                    <ClockIcon className="w-5 h-5 text-accent-tertiary" />
+                    <span>{runtime}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                    <FilmIcon className="w-5 h-5 text-accent-tertiary" />
+                    <span>{rated}</span>
+                </div>
+            </div>
+
+            <div className="space-y-2">
+                <h2 className="text-lg font-semibold text-text-primary">Overview</h2>
+                <p className="text-text-secondary text-base leading-relaxed">{plot}</p>
+            </div>
+
             <QuickInfo label="Language" info={language} />
-            <div>
-                <h2 className="text-xs text-cinder-200 text-opacity-50">
-                    Ratings:
-                </h2>
-                <Ratings source="IMDB" value={imdbRating} />
-                {ratings.map((item, index) => {
-                    return (
+
+            <div className="space-y-3">
+                <h2 className="text-lg font-semibold text-text-primary">Ratings</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <Ratings source="IMDB" value={imdbRating} />
+                    {ratings.map((item, index) => (
                         <Ratings
                             key={index}
                             source={item.Source}
                             value={item.Value}
                         />
-                    );
-                })}
+                    ))}
+                </div>
             </div>
         </div>
     );
