@@ -7,11 +7,11 @@ interface QuickInfoProps {
 
 const QuickInfo: React.FC<QuickInfoProps> = ({ label, info }) => {
     return (
-        <div className="mb-4">
-            <h2 className="text-xs text-cinder-200 text-opacity-50">
+        <div className="space-y-2 p-4 bg-background-tertiary/50 border border-white/5 rounded-xl">
+            <h3 className="text-sm font-medium text-text-tertiary uppercase tracking-wider">
                 {label}
-            </h2>
-            <p className="text-sm">{info}</p>
+            </h3>
+            <p className="text-base text-text-secondary">{info}</p>
         </div>
     );
 };
